@@ -99,6 +99,7 @@ button:focus-visible {
 .clock-item {
   width: 200px;
   margin-right: 50px;
+  position: relative;
 }
 .watch-screen {
   width: 200px;
@@ -145,8 +146,8 @@ button:focus-visible {
 }
 .close {
   position: absolute;
-  top: -20px;
-  right: -20px;
+  top: 0;
+  right: 0;
   z-index: 10;
   padding: 10px 10px;
   color: black;

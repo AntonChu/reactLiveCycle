@@ -6,9 +6,7 @@ import { RenderHistory } from "./components/RenderClocks";
 const ClockRange = () => {
   const date = new Date();
   const [clock, setClock] = useState([]);
-  const [second, setSecund] = useState(date.getSeconds);
-  const [minute, setMinute] = useState(15);
-  const [hour, setHour] = useState(2);
+  let timeoutId;
 
   const submit = (event) => {
     event.preventDefault();
@@ -20,10 +18,34 @@ const ClockRange = () => {
     event.target.reset();
   };
 
+  const clockDelete = (event) => {
+    event.preventDefault();
+    const target = event.target.parentElement.children[0].textContent;
+    setClock([...clock].filter(el => el.city !== target));
+  }
+
+  useEffect(() => {   //componentDidMount
+    return () => {
+      console.log('Bye!')
+    }; 
+  }, []);
+
+  useEffect(() => {   //componentDidUpdate
+    timeoutId = setTimeout(() => {
+      setClock([...clock]);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    }
+  }, [clock]);
+
   return (
     <div className="wrapper">
       <Form submit={submit} />
-      <RenderHistory clocks={clock} second={second} minute={minute} hour={hour}/>
+      <div className="clock-wrapper">
+        <RenderHistory clocks={clock} clockDelete={clockDelete}/>
+      </div>
     </div>
   )
 };
