@@ -21,33 +21,37 @@ const ClockRange = () => {
   const clockDelete = (event) => {
     event.preventDefault();
     const target = event.target.parentElement.children[0].textContent;
-    setClock([...clock].filter(el => el.city !== target));
-  }
+    setClock([...clock].filter((el) => el.city !== target));
+  };
 
-  useEffect(() => {   //componentDidMount
+  useEffect(() => {
+    //componentDidMount
     return () => {
-      console.log('Bye!')
-    }; 
+      console.log("Hello!");
+    };
   }, []);
 
-  useEffect(() => {   //componentDidUpdate
-    timeoutId = setTimeout(() => {
-      setClock([...clock]);
-    }, 1000);
-
+  useEffect(() => {
+    //componentDidUpdate
+    if (clock.length > 0) {
+      timeoutId = setTimeout(() => {
+        setClock([...clock]);
+      }, 1000);
+    }
+    
     return () => {
       clearTimeout(timeoutId);
-    }
+    };
   }, [clock]);
 
   return (
     <div className="wrapper">
       <Form submit={submit} />
       <div className="clock-wrapper">
-        <RenderHistory clocks={clock} clockDelete={clockDelete}/>
+        <RenderHistory clocks={clock} clockDelete={clockDelete} />
       </div>
     </div>
-  )
+  );
 };
 
 function App() {
